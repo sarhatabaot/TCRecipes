@@ -1,0 +1,5 @@
+name: TCRecipes
+version: '${project.version}'
+main: net.sarhatabaot.tcrecipes.TCRecipesAddon
+api-version: 1.17
+depend: [TradingCards]

@@ -1,0 +1,5 @@
+#rarity:name:amount
+key: "tradingcards:zombie_to_blaze"
+result: "uncommon,blaze,1,false"
+recipe:
+  - "common,zombie,4,false"
