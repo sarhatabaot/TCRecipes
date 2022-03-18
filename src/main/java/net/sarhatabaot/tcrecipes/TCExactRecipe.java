@@ -4,12 +4,12 @@ import net.tinetwork.tradingcards.api.model.deck.StorageEntry;
 
 import java.util.List;
 
-public class TCRecipe {
+public class TCExactRecipe {
     private final String key;
     private final StorageEntry result;
     private final List<StorageEntry> recipe;
 
-    public TCRecipe(final String key, final StorageEntry result, final List<StorageEntry> recipe) {
+    public TCExactRecipe(final String key, final StorageEntry result, final List<StorageEntry> recipe) {
         this.key = key;
         this.result = result;
         this.recipe = recipe;

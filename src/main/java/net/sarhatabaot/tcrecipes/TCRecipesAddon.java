@@ -48,6 +48,7 @@ public final class TCRecipesAddon extends JavaPlugin implements TradingCardsAddo
 
     @Override
     public void onReload() {
+        getAddonLogger().info("Reloading addon: " +getName());
         onDisable();
         onEnable();
     }

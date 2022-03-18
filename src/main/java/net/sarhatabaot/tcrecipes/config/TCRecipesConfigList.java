@@ -58,4 +58,11 @@ public class TCRecipesConfigList {
     public Set<TCRecipeConfig> getRecipeConfigList() {
         return recipeConfigList;
     }
+
+
+    public void reload() {
+        for(TCRecipeConfig config: recipeConfigList) {
+            config.reloadConfig();
+        }
+    }
 }

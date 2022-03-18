@@ -1,6 +1,6 @@
 package net.sarhatabaot.tcrecipes.manager;
 
-import net.sarhatabaot.tcrecipes.TCRecipe;
+import net.sarhatabaot.tcrecipes.TCExactRecipe;
 import net.sarhatabaot.tcrecipes.TCRecipesAddon;
 import net.sarhatabaot.tcrecipes.config.TCRecipeConfig;
 import net.sarhatabaot.tcrecipes.config.TCRecipesConfigList;
@@ -23,7 +23,7 @@ import java.util.Set;
 public class TCRecipeManager {
     private final TradingCardsPlugin<? extends Card<? extends Card>> cardsApi;
     private final TCRecipesAddon addon;
-    private final Set<TCRecipe> recipeList;
+    private final Set<TCExactRecipe> recipeList;
     private final TCRecipesConfigList recipesConfigList;
 
     private final String namespace;
@@ -45,7 +45,7 @@ public class TCRecipeManager {
     }
 
     public void registerAll() {
-        for(TCRecipe recipe: recipeList) {
+        for(TCExactRecipe recipe: recipeList) {
             registerRecipe(recipe);
 
         }
@@ -53,7 +53,7 @@ public class TCRecipeManager {
 
 
     public void unRegisterAll() {
-        for(TCRecipe tcRecipe: recipeList) {
+        for(TCExactRecipe tcRecipe: recipeList) {
             final NamespacedKey key = NamespacedKey.fromString(namespace + ":"+tcRecipe.getKey());
 
             Validate.notNull(key,"Key cannot be null"); //Should never be reached.
@@ -61,7 +61,7 @@ public class TCRecipeManager {
         }
     }
 
-    private void registerRecipe(@NotNull TCRecipe tcRecipe) {
+    private void registerRecipe(@NotNull TCExactRecipe tcRecipe) {
         final ItemStack resultItemStack = getItemStackFromStorageEntry(tcRecipe.getResult());
         final NamespacedKey key = NamespacedKey.fromString(namespace+":"+tcRecipe.getKey());
         Validate.notNull(key, "Key cannot be null.");
@@ -70,6 +70,7 @@ public class TCRecipeManager {
         for(StorageEntry entry: tcRecipe.getRecipe()) {
             recipe.addIngredient(getItemStackFromStorageEntry(entry));
         }
+        recipe.setGroup("tradingcards");
         addon.getAddonLogger().info("Registered "+ tcRecipe);
         Bukkit.addRecipe(recipe);
     }
@@ -78,7 +79,7 @@ public class TCRecipeManager {
     private ItemStack getItemStackFromStorageEntry(StorageEntry entry) {
         final Card<? extends Card> resultCard = cardsApi.getCardManager().getCard(entry.getCardId()
                 ,entry.getRarityId(),entry.isShiny());
-        final ItemStack resultItemStack = resultCard.build();
+        final ItemStack resultItemStack = resultCard.build(false);
         resultItemStack.setAmount(entry.getAmount());
         return resultItemStack;
     }
